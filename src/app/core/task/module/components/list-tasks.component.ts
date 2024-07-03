@@ -1,7 +1,7 @@
-import { Component, inject, Inject, OnInit } from '@angular/core';
-import { Task } from '@/core/task/application';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
-import { TaskUseCase } from '../../application/use-cases/task.use-case';
+import { CreateTaskUseCase, TaskUseCase, Task } from '@/core/task/application';
 
 @Component({
   selector: 'app-list-tasks',
@@ -10,7 +10,15 @@ import { TaskUseCase } from '../../application/use-cases/task.use-case';
 export class ListTasksComponent implements OnInit {
   tasks: Task[] = [];
 
-  constructor(private taskUseCase: TaskUseCase) {}
+  taskForm = new FormGroup({
+    description: new FormControl(''),
+    completed: new FormControl(false),
+  });
+
+  constructor(
+    private taskUseCase: TaskUseCase,
+    private createTaskUseCase: CreateTaskUseCase
+  ) {}
 
   ngOnInit() {
     this.loadTasks();
@@ -20,5 +28,14 @@ export class ListTasksComponent implements OnInit {
     this.taskUseCase.execute().subscribe((data) => {
       this.tasks = data;
     });
+  }
+
+  onSubmit() {
+    this.createTaskUseCase
+      .execute(this.taskForm.value as Task)
+      .subscribe(() => {
+        this.loadTasks();
+        this.taskForm.reset();
+      });
   }
 }
