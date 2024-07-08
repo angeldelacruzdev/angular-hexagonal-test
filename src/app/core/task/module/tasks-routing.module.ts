@@ -1,3 +1,3 @@
 import { Routes } from '@angular/router';
-import { ListTasksComponent } from './components/list-tasks.component';
+import { ListTasksComponent } from './list-tasks/list-tasks.component';
 export const tastRoutes: Routes = [{ path: '', component: ListTasksComponent }];
