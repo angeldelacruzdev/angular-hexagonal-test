@@ -28,11 +28,11 @@ export class TaskRepositoryImpl implements TaskRepository {
 
   updateTask(task: Task): Observable<void> {
     const url = `${this.apiUrl}/${task.id}`;
-    return this.http.put<void>(url, task);
+    return this.http.put<void>(url, task).pipe();
   }
 
   deleteTask(id: number): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<void>(url);
+    return this.http.delete<void>(url).pipe();
   }
 }

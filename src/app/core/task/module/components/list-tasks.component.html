@@ -1,9 +1,10 @@
 <div class="container mx-auto px-4">
   <h1 class="mt-4">Lista de tareas</h1>
   <ul>
-    @for (task of tasks; track task.description) {
+    @for (task of tasks; track task.id; ) {
     <li>
-      {{ task.description }} - {{ task.completed ? "Completada" : "Pendiente" }}
+      {{ task.id }} : {{ task.description == "" ? "---" : task.description }} :
+      {{ task.completed ? "Completada" : "Pendiente" }}
     </li>
     }
   </ul>
@@ -23,8 +24,9 @@
         />
       </mat-form-field>
       <button
+        [disabled]="!taskForm.valid"
         mat-button
-        class="rounded-sm hover:bg-orange-400 bg-orange-500 transition-all"
+        class="rounded-sm hover:bg-orange-400 bg-orange-500 transition-all text-white"
       >
         Enviar
       </button>

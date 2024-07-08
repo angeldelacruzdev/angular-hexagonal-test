@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { CreateTaskUseCase, TaskUseCase, Task } from '@/core/task/application';
 
@@ -11,7 +11,7 @@ export class ListTasksComponent implements OnInit {
   tasks: Task[] = [];
 
   taskForm = new FormGroup({
-    description: new FormControl(''),
+    description: new FormControl('', [Validators.required]),
     completed: new FormControl(false),
   });
 
