@@ -1,7 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { CreateTaskUseCase, TaskUseCase, Task } from '@/core/task/application';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogAlertMessageComponent } from '@/ui';
 
 @Component({
   selector: 'app-list-tasks',
@@ -17,7 +24,8 @@ export class ListTasksComponent implements OnInit {
 
   constructor(
     private taskUseCase: TaskUseCase,
-    private createTaskUseCase: CreateTaskUseCase
+    private createTaskUseCase: CreateTaskUseCase,
+    public dialogRef: MatDialogRef<DialogAlertMessageComponent>
   ) {}
 
   ngOnInit() {
@@ -37,5 +45,15 @@ export class ListTasksComponent implements OnInit {
         this.loadTasks();
         this.taskForm.reset();
       });
+  }
+
+  handleDelete(id: string) {
+    console.log(id);
+  }
+
+  openDialog() {
+    this.dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

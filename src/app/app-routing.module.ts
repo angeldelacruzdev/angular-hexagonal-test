@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { tastRoutes } from './core/task/module/tasks-routing.module';
+import { tastRoutes } from './core/task/module/list-tasks/tasks-routing.module';
 
 const routes: Routes = [...tastRoutes];
 
